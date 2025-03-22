@@ -74,4 +74,12 @@ class User extends Authenticatable
     {
         return $this->hasOne(Property::class, 'tenant_id');
     }
+
+    public function ownerTickets(): HasMany {
+        return $this->hasMany(Ticket::class, 'owner_id');
+    }
+
+    public function tenantTickets(): HasMany {
+        return $this->hasMany(Ticket::class, 'tenant_id');
+    }
 }
