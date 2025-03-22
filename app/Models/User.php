@@ -55,4 +55,24 @@ class User extends Authenticatable
     {
         return $this->role === 'tenant';
     }
+
+    // I am not sure about relations below... Let's try
+
+    public function ownedProperties()
+    {
+        if ($this->isOwner()) {
+            return $this->hasMany(Property::class, 'owner_id');
+        } else {
+            return null;
+        }
+    }
+
+    public function rentedProperty()
+    {
+        if ($this->isTenant()) {
+            return $this->belongsTo(Property::class, 'tenant_id');
+        } else {
+            return null;
+        }
+    }
 }

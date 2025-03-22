@@ -16,4 +16,12 @@ class Property extends Model
             return true;
         }
     }
+
+    public function owner() {
+        return $this->belongsTo(User::class, 'owner_id');
+    }
+
+    public function tenant() {
+        return $this->belongsTo(User::class, 'tenant_id');
+    }
 }
