@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Message;
 use App\Models\Payment;
 use App\Models\Property;
 use App\Models\Ticket;
@@ -59,6 +60,13 @@ class DatabaseSeeder extends Seeder
             'description' => 'Can you repair the door please?',
             'status' => 'open',
             'property_id' => 1,
+        ]);
+
+        Message::factory()->create([
+            'ticket_id' => 1,
+            'user_id' => 2,
+            'content' => 'Bonjour, comment allez-vous ?',
+            'isSystem' => false,
         ]);
     }
 }
