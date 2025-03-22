@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Payment;
+use App\Models\Property;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -16,8 +18,39 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'role' => 'owner',
+            'first_name' => 'Aymane',
+            'last_name' => 'Ait Ben Ali',
+            'phone' => '+33609427694',
+            'iban' => 'fakeIBAN1',
+            'bic' => 'fakeBIC1',
+            'email' => 'aymane@aitbenali.com',
+        ]);
+
+        User::factory()->create([
+            'role' => 'tenant',
+            'first_name' => 'Lucas',
+            'last_name' => 'Decrock',
+            'phone' => '+33612345678',
+            'iban' => 'fakeIBAN2',
+            'bic' => 'fakeBIC2',
+            'email' => 'lucas@decrock.com',
+        ]);
+
+        Property::factory()->create([
+            'type' => 'apartment',
+            'rent' => 614,
+            'city' => 'Valenciennes',
+            'address' => '16 rue Capron',
+            'owner_id' => 1,
+            'tenant_id' => 2,
+        ]);
+
+        Payment::factory()->create([
+            'amount' => 614,
+            'due_date' => '2025-04-30',
+            'paid_date' => null,
+            'property_id' => 1,
         ]);
     }
 }
