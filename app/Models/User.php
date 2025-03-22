@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -46,33 +48,30 @@ class User extends Authenticatable
         ];
     }
 
-    public function isOwner()
+    public function isOwner(): bool
     {
         return $this->role === 'owner';
     }
 
-    public function isTenant()
+    public function isTenant(): bool
     {
         return $this->role === 'tenant';
     }
 
-    // I am not sure about relations below... Let's try
+    // Maybe the 2 relations below can be better
+    // It would be better if they couldn't return null
 
-    public function ownedProperties()
+    // Only call this function as an owner user
+    // Calling it as a tenant will return null
+    public function ownedProperties(): HasMany
     {
-        if ($this->isOwner()) {
-            return $this->hasMany(Property::class, 'owner_id');
-        } else {
-            return null;
-        }
+        return $this->hasMany(Property::class, 'owner_id');
     }
 
-    public function rentedProperty()
+    // Only call this function as a tenant user
+    // Calling it as an owner will return null
+    public function rentedProperty(): HasOne
     {
-        if ($this->isTenant()) {
-            return $this->belongsTo(Property::class, 'tenant_id');
-        } else {
-            return null;
-        }
+        return $this->hasOne(Property::class, 'tenant_id');
     }
 }
