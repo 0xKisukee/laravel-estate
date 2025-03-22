@@ -30,12 +30,10 @@ class Payment extends Model
     }
 
     public function owner(): User {
-        $property = $this->property();
-        return $property->owner;
+        return $this->property->owner;
     }
 
     public function tenant(): User {
-        $property = $this->property();
-        return $property->tenant;
+        return $this->property->tenant;
     }
 }
