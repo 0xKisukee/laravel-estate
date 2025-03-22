@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Payment;
 use App\Models\Property;
+use App\Models\Ticket;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -50,6 +51,13 @@ class DatabaseSeeder extends Seeder
             'amount' => 614,
             'due_date' => '2025-04-30',
             'paid_date' => null,
+            'property_id' => 1,
+        ]);
+
+        Ticket::factory()->create([
+            'type' => 'repair',
+            'description' => 'Can you repair the door please?',
+            'status' => 'open',
             'property_id' => 1,
         ]);
     }
