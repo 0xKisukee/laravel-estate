@@ -29,8 +29,8 @@ class PropertyFactory extends Factory
             'rent' => random_int(150, 950),
             'city' => fake()->city(),
             'address' => fake()->address(),
-            'owner_id' => User::factory()->owner()->create(),
-            'tenant_id' => User::factory()->tenant()->create(),
+            'owner_id' => User::where('role', 'owner')->inRandomOrder()->first()?->id,
+            'tenant_id' => User::where('role', 'tenant')->inRandomOrder()->first()?->id,
         ];
     }
 
