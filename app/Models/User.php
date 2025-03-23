@@ -75,6 +75,16 @@ class User extends Authenticatable
         return $this->hasOne(Property::class, 'tenant_id');
     }
 
+    public function ownerPayments(): HasMany
+    {
+        return $this->hasMany(Payment::class, 'owner_id');
+    }
+
+    public function tenantPayments(): HasMany
+    {
+        return $this->hasMany(Payment::class, 'tenant_id');
+    }
+
     public function ownerTickets(): HasMany {
         return $this->hasMany(Ticket::class, 'owner_id');
     }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -48,5 +49,23 @@ class UserController extends Controller
         $properties = User::find($id)->rentedProperty;
 
         return response()->json($properties);
+    }
+
+    public function getPayments($id) {
+//      WITH AUTH:
+//      Auth::login(User::find($id));
+//      $user = Auth::user();
+
+//      WITHOUT AUTH:
+        $user = User::find($id);
+
+        // Then
+        if ($user->isOwner()) {
+            $payments = $user->ownerPayments;
+        } else {
+            $payments = $user->tenantPayments;
+        }
+
+        return response()->json($payments);
     }
 }

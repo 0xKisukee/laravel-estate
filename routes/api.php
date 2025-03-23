@@ -9,3 +9,5 @@ Route::apiResource('properties', PropertyController::class);
 
 Route::get('users/{user}/properties', [UserController::class, 'getOwnerProperties']);
 Route::get('users/{user}/property', [UserController::class, 'getTenantProperty']);
+
+Route::get('users/{user}/payments', [UserController::class, 'getPayments']);
