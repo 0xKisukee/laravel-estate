@@ -23,7 +23,7 @@ class PropertyController extends Controller
         return response()->json($property);
     }
 
-    public function store(Request $request)
+    public function store(CreatePropertyRequest $request)
     {
         $property = Property::create($request->validated());
 
