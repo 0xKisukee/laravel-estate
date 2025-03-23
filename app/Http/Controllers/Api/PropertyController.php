@@ -27,16 +27,9 @@ class PropertyController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'type' => 'required|string',
-            'rent' => 'required|numeric',
-            'city' => 'required|string',
-            'address' => 'required|string',
-        ]);
+        $property = Property::create($request->validated());
 
-        $property = Property::create($validated);
-
-        return response()->json($property, 201);
+        return response()->json($property);
     }
 
     public function update($id, Request $request)
