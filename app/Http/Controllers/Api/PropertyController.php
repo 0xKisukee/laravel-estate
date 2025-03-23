@@ -14,10 +14,8 @@ class PropertyController extends Controller
         return response()->json($properties);
     }
 
-    public function show($id)
+    public function show(Property $property)
     {
-        $property = Property::find($id);
-
         if (!$property) {
             return response()->json(['message' => 'Property not found'], 404);
         }
@@ -32,12 +30,12 @@ class PropertyController extends Controller
         return response()->json($property);
     }
 
-    public function update($id, Request $request)
+    public function update(Property $property, Request $request)
     {
 
     }
 
-    public function destroy($id)
+    public function destroy(Property $property)
     {
 
     }

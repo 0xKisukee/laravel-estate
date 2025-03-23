@@ -17,10 +17,11 @@ class UserController extends Controller
 
     }
 
-    public function show($id)
+    public function show(User $user)
     {
 
     }
+
     // Create a user
     public function store(RegisterRequest $request)
     {
@@ -29,37 +30,29 @@ class UserController extends Controller
         return response()->json($user);
     }
 
-    public function update($id, Request $request)
+    public function update(User $user, Request $request)
     {
 
     }
 
-    public function destroy($id)
+    public function destroy(User $user)
     {
 
     }
 
-    public function getOwnerProperties($id) {
-        $properties = User::find($id)->ownedProperties;
+    public function getOwnerProperties(User $user) {
+        $properties = $user->ownedProperties;
 
         return response()->json($properties);
     }
 
-    public function getTenantProperty($id) {
-        $properties = User::find($id)->rentedProperty;
+    public function getTenantProperty(User $user) {
+        $properties = $user->rentedProperty;
 
         return response()->json($properties);
     }
 
-    public function getPayments($id) {
-//      WITH AUTH:
-//      Auth::login(User::find($id));
-//      $user = Auth::user();
-
-//      WITHOUT AUTH:
-        $user = User::find($id);
-
-        // Then
+    public function getPayments(User $user) {
         if ($user->isOwner()) {
             $payments = $user->ownerPayments;
         } else {
