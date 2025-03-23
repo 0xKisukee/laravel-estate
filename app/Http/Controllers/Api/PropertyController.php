@@ -8,7 +8,23 @@ use App\Models\Property;
 
 class PropertyController extends Controller
 {
-    // Create a new property
+    public function index()
+    {
+        $properties = Property::all();
+        return response()->json($properties);
+    }
+
+    public function show($id)
+    {
+        $property = Property::find($id);
+
+        if (!$property) {
+            return response()->json(['message' => 'Property not found'], 404);
+        }
+
+        return response()->json($property);
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -23,22 +39,13 @@ class PropertyController extends Controller
         return response()->json($property, 201);
     }
 
-    // Get a specific property by ID
-    public function show($id)
+    public function update($id, Request $request)
     {
-        $property = Property::find($id);
 
-        if (!$property) {
-            return response()->json(['message' => 'Property not found'], 404);
-        }
-
-        return response()->json($property);
     }
 
-    // Get a list of properties
-    public function getAll()
+    public function destroy($id)
     {
-        $properties = Property::all();
-        return response()->json($properties);
+
     }
 }
