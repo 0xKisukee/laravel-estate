@@ -16,8 +16,10 @@ class UserResource extends JsonResource
     {
         if ($this->isOwner()) {
             $userPayments = $this->ownerPayments;
+            $userTickets = $this->ownerTickets;
         } else {
             $userPayments = $this->tenantPayments;
+            $userTickets = $this->tenantTickets;
         }
 
         return [
@@ -33,6 +35,7 @@ class UserResource extends JsonResource
 
             // Added by the resource
             'payments' => $userPayments,
+            'tickets' => $userTickets,
         ];
     }
 }
