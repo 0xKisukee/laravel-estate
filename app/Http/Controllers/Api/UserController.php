@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
@@ -53,11 +54,8 @@ class UserController extends Controller
     }
 
     public function getPayments(User $user) {
-        if ($user->isOwner()) {
-            $payments = $user->ownerPayments;
-        } else {
-            $payments = $user->tenantPayments;
-        }
+        $userArray = (new UserResource($user))->toArray(request());
+        $payments = $userArray['payments'];
 
         return response()->json($payments);
     }
