@@ -53,6 +53,8 @@ class DatabaseSeeder extends Seeder
             'due_date' => '2025-04-30',
             'paid_date' => null,
             'property_id' => 1,
+            'owner_id' => 1,
+            'tenant_id' => 2,
         ]);
 
         Ticket::factory()->create([

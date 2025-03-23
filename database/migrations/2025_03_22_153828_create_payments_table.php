@@ -17,6 +17,8 @@ return new class extends Migration
             $table->date('due_date');
             $table->date('paid_date')->nullable();
             $table->foreignId('property_id')->constrained('properties');
+            $table->foreignId('owner_id')->constrained('users');
+            $table->foreignId('tenant_id')->constrained('users');
             $table->timestamps();
         });
     }

@@ -18,11 +18,15 @@ class PaymentFactory extends Factory
     // This creates an upcoming payment
     public function definition(): array
     {
+        $property = Property::all()->random();
+
         return [
             'amount' => random_int(0, 950),
             'due_date' => fake()->dateTimeBetween('now', '+2 months')->format('Y-m-d'),
             'paid_date' => null,
-            'property_id' => Property::all()->random()->id,
+            'property_id' => $property->id,
+            'owner_id' => $property->owner->id,
+            'tenant_id' => $property->tenant->id,
         ];
     }
 
