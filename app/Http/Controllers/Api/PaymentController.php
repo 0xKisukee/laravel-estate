@@ -15,7 +15,11 @@ class PaymentController extends Controller
 
     public function show(Payment $payment)
     {
+        if (!$payment) {
+            return response()->json(['message' => 'Payment not found'], 404);
+        }
 
+        return response()->json($payment);
     }
 
     public function store(Request $request)

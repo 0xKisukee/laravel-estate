@@ -54,6 +54,7 @@ class UserController extends Controller
     }
 
     public function getPayments(User $user) {
+        // request() parameter can be used in the resource toArray method
         $userArray = (new UserResource($user))->toArray(request());
         $payments = $userArray['payments'];
 
