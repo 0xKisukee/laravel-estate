@@ -11,16 +11,42 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    // Create a user
-    public function register(RegisterRequest $request)
+    public function index()
     {
-        // Creates a new user
+
+    }
+
+    public function show($id)
+    {
+
+    }
+    // Create a user
+    public function store(RegisterRequest $request)
+    {
         $user = User::create($request->validated());
 
-        // Return response
-        return response()->json([
-            'message' => 'User created successfully',
-            'user' => $user,
-        ], 201);  // Created
+        return response()->json($user);
+    }
+
+    public function update($id, Request $request)
+    {
+
+    }
+
+    public function destroy($id)
+    {
+
+    }
+
+    public function getOwnerProperties($id) {
+        $properties = User::find($id)->ownedProperties;
+
+        return response()->json($properties);
+    }
+
+    public function getTenantProperty($id) {
+        $properties = User::find($id)->rentedProperty;
+
+        return response()->json($properties);
     }
 }
