@@ -19,3 +19,9 @@ Route::get('users/{user}/payments', [UserController::class, 'getPayments']);
 
 // Owners can record a payment to set it as paid
 Route::patch('payments/{payment}/recordPayment', [PaymentController::class, 'recordPayment']);
+
+// Owners can set a tenant for their property
+Route::patch('properties/{property}/setTenant/{user}', [PropertyController::class, 'setTenant']);
+
+// Owners can set a tenant for their property
+Route::patch('properties/{property}/removeTenant', [PropertyController::class, 'removeTenant']);
