@@ -62,6 +62,8 @@ class DatabaseSeeder extends Seeder
             'description' => 'Can you repair the door please?',
             'status' => 'open',
             'property_id' => 1,
+            'owner_id' => 1,
+            'tenant_id' => 2,
         ]);
 
         Message::factory()->create([

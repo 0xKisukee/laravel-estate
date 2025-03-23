@@ -17,6 +17,8 @@ return new class extends Migration
             $table->text('description');
             $table->enum('status', ['open', 'closed'])->default('open');
             $table->foreignId('property_id')->constrained('properties');
+            $table->foreignId('owner_id')->constrained('users');
+            $table->foreignId('tenant_id')->constrained('users');
             $table->timestamps();
         });
     }
