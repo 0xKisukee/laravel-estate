@@ -13,20 +13,13 @@ class UserController extends Controller
     // Create a user
     public function register(Request $request)
     {
-        // Validation des données reçues
-        $validator = Validator::make($request->all(), [
+        // Validation
+        $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed', //'password_confirmation'
         ]);
-
-        // If validation fails, return errors
-        if ($validator->fails()) {
-            return response()->json([
-            'errors' => $validator->errors()
-            ], 422);  // Unprocessable Entity
-        }
 
         // Creates a new user
         $user = User::create([
