@@ -55,7 +55,11 @@ class TicketController extends Controller
      */
     public function update(Request $request, Ticket $ticket)
     {
-        //
+        $ticket->update([
+            'status' => $request->status,
+        ]);
+
+        return response()->json($ticket);
     }
 
     /**

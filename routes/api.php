@@ -30,3 +30,7 @@ Route::patch('properties/{property}/removeTenant', [PropertyController::class, '
 
 // Owners and tenants can get their tickets
 Route::get('user/{user}/tickets', [TicketController::class, 'getTickets']);
+
+// Get messages route
+
+// Add message route
