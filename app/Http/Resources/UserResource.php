@@ -14,13 +14,8 @@ class UserResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        if ($this->isOwner()) {
-            $userPayments = $this->ownerPayments;
-            $userTickets = $this->ownerTickets;
-        } else {
-            $userPayments = $this->tenantPayments;
-            $userTickets = $this->tenantTickets;
-        }
+        $userPayments = $this->profile()->payments;
+        $userTickets = $this->profile()->tickets;
 
         return [
             'id' => $this->id,
@@ -33,9 +28,9 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'email_verified_at' => $this->email_verified_at,
 
-            // Added by the resource
-            'payments' => $userPayments,
-            'tickets' => $userTickets,
+            // Nested resources
+            'payments' => PaymentResource::collection($userPayments),
+            'tickets' => PaymentResource::collection($userTickets),
         ];
     }
 }
