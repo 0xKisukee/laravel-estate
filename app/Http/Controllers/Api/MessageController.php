@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateMessageRequest;
 use App\Models\Message;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
@@ -21,7 +20,7 @@ class MessageController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateMessageRequest $request)
+    public function store(Request $request)
     {
 
     }
