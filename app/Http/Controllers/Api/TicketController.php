@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateMessageRequest;
-use App\Http\Requests\CreateTicketRequest;
 use App\Http\Resources\UserResource;
 use App\Models\Message;
 use App\Models\Property;
@@ -28,13 +26,19 @@ class TicketController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateTicketRequest $request)
+    public function store(Request $request)
     {
-        $property = Property::findOrFail($request->validated()['property_id']);
+        $validatedData = $request->validate([
+            'property_id' => 'required|numeric',
+            'type' => 'required|string|in:other,repair,payment',
+            'description' => 'required|string',
+        ]);
+
+        $property = Property::findOrFail($request->$validatedData['property_id']);
 
         $ticket = Ticket::create([
-            'type' => $request->validated()['type'],
-            'description' => $request->validated()['description'],
+            'type' => $request->$validatedData['type'],
+            'description' => $request->$validatedData['description'],
             'property_id' => $property->id,
             'owner_id' => $property->owner_id,
             'tenant_id' => $property->tenant_id,
@@ -61,7 +65,7 @@ class TicketController extends Controller
     public function update(Request $request, Ticket $ticket)
     {
         $ticket->update([
-            'status' => $request->status,
+            'status' => $request->validate(['required', 'string'])['status'],
         ]);
 
         return response()->json($ticket);
@@ -73,27 +77,5 @@ class TicketController extends Controller
     public function destroy(Ticket $ticket)
     {
         //
-    }
-
-    public function getMessages(Ticket $ticket)
-    {
-        $this->authorize('getMessages', $ticket);
-
-        $messages = $ticket->messages;
-
-        return response()->json($messages);
-    }
-
-    public function newMsg(Ticket $ticket, CreateMessageRequest $request)
-    {
-        $this->authorize('newMessage', $ticket);
-
-        $message = $ticket->messages()->create([
-            'user_id' => request()->user()->id,
-            'content' => $request->validated()['content'],
-            'is_system' => $request->validated()['is_system'],
-        ]);
-
-        return response()->json($message);
     }
 }

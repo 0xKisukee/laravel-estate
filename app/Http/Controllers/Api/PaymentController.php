@@ -28,20 +28,15 @@ class PaymentController extends Controller
 
     public function update(Payment $payment, Request $request)
     {
+        $payment->update([
+            'paid_date' => $request->validate(['required', 'string'])['paid_date'],
+        ]);
 
+        return response()->json($payment);
     }
 
     public function destroy(Payment $payment)
     {
 
-    }
-
-    public function recordPayment(Payment $payment)
-    {
-        $payment->update([
-            'paid_date' => now()
-        ]);
-
-        return response()->json($payment);
     }
 }

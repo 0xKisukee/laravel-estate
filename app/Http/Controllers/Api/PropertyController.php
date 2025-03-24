@@ -42,9 +42,12 @@ class PropertyController extends Controller
 
     }
 
-    public function setTenant(Property $property, User $user)
+    public function setTenant(Property $property, Request $request)
     {
-        $property->update(['tenant_id' => $user->id]);
+        // Here we need to get 'entry_date' from the body to calculate first payment
+        $property->update([
+            'tenant_id' => $request->validate(['tenant_id' => 'required'])['tenant_id']
+        ]);
 
         return response()->json($property);
     }
