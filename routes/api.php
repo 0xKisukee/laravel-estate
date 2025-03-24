@@ -22,10 +22,10 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('properties/{property}', [PropertyController::class, 'show']);
     // All users can get the list of their payments
     Route::get('users/{user}/payments', [UserController::class, 'getPayments']);
-    // Owners and tenants can get their tickets
-    Route::get('user/{user}/tickets', [TicketController::class, 'getTickets']);
+    // All users can get their tickets
+    Route::get('users/{user}/tickets', [UserController::class, 'getTickets']);
     // Get messages route
-    Route::get('tickets/{ticket}/messages', [MessageController::class, 'getMessages']);
+    Route::get('tickets/{ticket}/messages', [TicketController::class, 'getMessages']);
     // Add message route
     Route::post('tickets/{ticket}/newMessage', [MessageController::class, 'newMsg']);
 
