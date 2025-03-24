@@ -86,7 +86,13 @@ class TicketController extends Controller
 
     public function newMsg(Ticket $ticket, CreateMessageRequest $request)
     {
-        $message = Message::create($request->validated());
+        $this->authorize('newMessage', $ticket);
+
+        $message = $ticket->messages()->create([
+            'user_id' => request()->user()->id,
+            'content' => $request->validated()['content'],
+            'is_system' => $request->validated()['is_system'],
+        ]);
 
         return response()->json($message);
     }

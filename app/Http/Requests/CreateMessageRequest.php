@@ -22,8 +22,6 @@ class CreateMessageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ticket_id' => 'required|numeric',
-            'user_id' => 'required|numeric',
             'content' => 'required|string',
             'is_system' => 'required|boolean',
         ];
