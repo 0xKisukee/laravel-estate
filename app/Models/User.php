@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 class User extends Authenticatable
 {
@@ -49,32 +50,17 @@ class User extends Authenticatable
         ];
     }
 
-    public function isOwner(): bool
-    {
-        return $this->role === 'owner';
+    public function profile() {
+        if ($this->role === 'owner') {
+            return (new Owner())->newFromBuilder($this->getAttributes());
+        }
+        elseif ($this->role === 'tenant') {
+            return (new Tenant())->newFromBuilder($this->getAttributes());
+        }
+        return $this;
     }
 
-    public function isTenant(): bool
-    {
-        return $this->role === 'tenant';
-    }
 
-    // Maybe the 2 relations below can be better
-    // It would be better if they couldn't return null
-
-    // Only call this function as an owner user
-    // Calling it as a tenant will return null
-    public function ownedProperties(): HasMany
-    {
-        return $this->hasMany(Property::class, 'owner_id');
-    }
-
-    // Only call this function as a tenant user
-    // Calling it as an owner will return null
-    public function rentedProperty(): HasOne
-    {
-        return $this->hasOne(Property::class, 'tenant_id');
-    }
 
     public function ownerPayments(): HasMany
     {
