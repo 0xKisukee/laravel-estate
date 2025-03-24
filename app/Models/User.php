@@ -59,24 +59,4 @@ class User extends Authenticatable
         }
         return $this;
     }
-
-
-
-    public function ownerPayments(): HasMany
-    {
-        return $this->hasMany(Payment::class, 'owner_id');
-    }
-
-    public function tenantPayments(): HasMany
-    {
-        return $this->hasMany(Payment::class, 'tenant_id');
-    }
-
-    public function ownerTickets(): HasMany {
-        return $this->hasMany(Ticket::class, 'owner_id');
-    }
-
-    public function tenantTickets(): HasMany {
-        return $this->hasMany(Ticket::class, 'tenant_id');
-    }
 }

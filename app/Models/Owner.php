@@ -19,4 +19,13 @@ class Owner extends User
     {
         return $this->hasMany(Property::class, 'owner_id');
     }
+
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class, 'owner_id');
+    }
+
+    public function tickets(): HasMany {
+        return $this->hasMany(Ticket::class, 'owner_id');
+    }
 }

@@ -20,4 +20,13 @@ class Tenant extends User
     {
         return $this->hasOne(Property::class, 'owner_id');
     }
+
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class, 'tenant_id');
+    }
+
+    public function tickets(): HasMany {
+        return $this->hasMany(Ticket::class, 'tenant_id');
+    }
 }
