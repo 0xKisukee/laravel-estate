@@ -1,10 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\Api\PropertyController;
+use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\PaymentController;
+use App\Http\Controllers\Api\PropertyController;
 use App\Http\Controllers\Api\TicketController;
+use App\Http\Controllers\Api\UserController;
+use Illuminate\Support\Facades\Route;
 
 Route::apiResource('users', UserController::class);
 Route::apiResource('properties', PropertyController::class);
@@ -32,5 +33,7 @@ Route::patch('properties/{property}/removeTenant', [PropertyController::class, '
 Route::get('user/{user}/tickets', [TicketController::class, 'getTickets']);
 
 // Get messages route
+Route::get('tickets/{ticket}/messages', [MessageController::class, 'getMessages']);
 
 // Add message route
+Route::post('tickets/{ticket}/newMessage', [MessageController::class, 'newMsg']);
