@@ -15,7 +15,7 @@ class Owner extends User
         });
     }
 
-    public function properties(): HasMany
+    public function prop(): HasMany
     {
         return $this->hasMany(Property::class, 'owner_id');
     }

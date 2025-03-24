@@ -16,9 +16,9 @@ class Tenant extends User
         });
     }
 
-    public function rental(): HasOne
+    public function prop(): HasMany
     {
-        return $this->hasOne(Property::class, 'owner_id');
+        return $this->hasMany(Property::class, 'owner_id');
     }
 
     public function payments(): HasMany
