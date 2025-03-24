@@ -27,7 +27,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     // Get messages route
     Route::get('tickets/{ticket}/messages', [TicketController::class, 'getMessages']);
     // Add message route
-    Route::post('tickets/{ticket}/newMessage', [MessageController::class, 'newMsg']);
+    Route::post('tickets/{ticket}/newMessage', [TicketController::class, 'newMsg']);
 
     Route::group(['middleware' => 'is_owner'], function () {
         // Owners can create a property

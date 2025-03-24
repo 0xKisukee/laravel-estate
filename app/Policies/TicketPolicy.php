@@ -72,4 +72,13 @@ class TicketPolicy
             return ($user->id === $ticket->tenant()->id);
         }
     }
+
+    public function newMessage(User $user, Ticket $ticket): bool
+    {
+        if ($user->isOwner()) {
+            return ($user->id === $ticket->owner()->id);
+        } else {
+            return ($user->id === $ticket->tenant()->id);
+        }
+    }
 }
