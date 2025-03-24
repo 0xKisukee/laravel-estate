@@ -14,7 +14,7 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
 Route::apiResource('users', UserController::class);
-Route::apiResource('properties', PropertyController::class);
+Route::apiResource('properties', PropertyController::class)->middleware('auth:sanctum');
 Route::apiResource('tickets', TicketController::class);
 
 // Owners can get the list of their properties

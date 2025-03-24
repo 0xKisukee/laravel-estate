@@ -3,13 +3,23 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
 use App\Http\Requests\CreatePropertyRequest;
 use App\Models\User;
 use App\Models\Property;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class PropertyController extends Controller
+class PropertyController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        return [
+          new Middleware('auth:sanctum', except: ['index', 'show'])
+        ];
+    }
+
     public function index()
     {
         $properties = Property::all();
@@ -27,7 +37,7 @@ class PropertyController extends Controller
 
     public function store(CreatePropertyRequest $request)
     {
-        $property = Property::create($request->validated());
+        $property = request()->user()->ownedProperties()->create($request->validated());
 
         return response()->json($property);
     }
