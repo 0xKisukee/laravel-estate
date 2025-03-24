@@ -26,8 +26,8 @@ class CreatePropertyRequest extends FormRequest
             'rent' => 'required|numeric',
             'city' => 'required|string',
             'address' => 'required|string',
-            'owner_id' => 'required|decimal',
-            'tenant_id' => 'required|decimal',
+            'owner_id' => 'required|numeric',
+            'tenant_id' => 'required|numeric',
         ];
     }
 }
