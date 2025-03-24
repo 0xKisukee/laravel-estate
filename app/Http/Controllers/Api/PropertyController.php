@@ -7,9 +7,11 @@ use App\Http\Requests\CreatePropertyRequest;
 use App\Models\Property;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class PropertyController extends Controller
 {
+    use AuthorizesRequests;
 
     public function index()
     {
@@ -18,9 +20,7 @@ class PropertyController extends Controller
 
     public function show(Property $property)
     {
-        if (!$property) {
-            return response()->json(['message' => 'Property not found'], 404);
-        }
+        $this->authorize('view', $property);
 
         return response()->json($property);
     }
