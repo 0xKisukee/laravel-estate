@@ -54,9 +54,20 @@ class UserController extends Controller
 
     public function getPayments(User $user) {
         // request() parameter can be used in the resource toArray method
+        $this->authorize('getPayments', $user);
+
         $userArray = (new UserResource($user))->toArray(request());
         $payments = $userArray['payments'];
 
         return response()->json($payments);
+    }
+
+    public function getTickets(User $user) {
+        $this->authorize('getTickets', $user);
+
+        $userArray = (new UserResource($user))->toArray(request());
+        $tickets = $userArray['tickets'];
+
+        return response()->json($tickets);
     }
 }

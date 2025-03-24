@@ -62,4 +62,14 @@ class UserPolicy
     {
         return false;
     }
+
+    public function getPayments(User $user, User $model): bool
+    {
+        return ($user->id === $model->id);
+    }
+
+    public function getTickets(User $user, User $model): bool
+    {
+        return ($user->id === $model->id);
+    }
 }
