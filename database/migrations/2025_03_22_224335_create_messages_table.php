@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('ticket_id')->constrained('tickets');
             $table->foreignId('user_id')->constrained('users');
             $table->text('content');
-            $table->boolean('isSystem')->default(false);
+            $table->boolean('is_system')->default(false);
             $table->timestamps();
         });
     }

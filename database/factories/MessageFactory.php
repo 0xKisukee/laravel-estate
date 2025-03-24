@@ -22,7 +22,7 @@ class MessageFactory extends Factory
             'ticket_id' => Ticket::all()->first()->id,
             'user_id' => User::all()->first()->id,
             'content' => 'Bonjour, comment allez-vous ?',
-            'isSystem' => false,
+            'is_system' => false,
         ];
     }
 }

@@ -70,7 +70,7 @@ class DatabaseSeeder extends Seeder
             'ticket_id' => 1,
             'user_id' => 2,
             'content' => 'Bonjour, comment allez-vous ?',
-            'isSystem' => false,
+            'is_system' => false,
         ]);
     }
 }
