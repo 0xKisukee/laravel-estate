@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateTicketRequest;
 use App\Http\Resources\UserResource;
 use App\Models\Property;
 use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Requests\CreateTicketRequest;
 
 class TicketController extends Controller
 {

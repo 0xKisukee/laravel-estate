@@ -3,13 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UserResource;
-use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -20,17 +17,12 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-
+        return (new UserResource($user));
     }
 
-    // Create a user
     public function store(RegisterRequest $request)
     {
-        /* deprecated: now using sanctum
-        $user = User::create($request->validated());
 
-        return response()->json($user);
-        */
     }
 
     public function update(User $user, Request $request)
