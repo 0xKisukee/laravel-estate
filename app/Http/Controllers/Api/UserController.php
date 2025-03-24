@@ -26,9 +26,11 @@ class UserController extends Controller
     // Create a user
     public function store(RegisterRequest $request)
     {
+        /* deprecated: now using sanctum
         $user = User::create($request->validated());
 
         return response()->json($user);
+        */
     }
 
     public function update(User $user, Request $request)
