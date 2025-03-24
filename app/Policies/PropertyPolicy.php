@@ -21,7 +21,11 @@ class PropertyPolicy
      */
     public function view(User $user, Property $property): bool
     {
-        return $property->owner->id == $user->id;
+        if ($user->isOwner()) {
+            return ($property->owner->id === $user->id);
+        } else {
+            return ($property->tenant->id === $user->id);
+        }
     }
 
     /**

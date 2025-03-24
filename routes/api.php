@@ -16,9 +16,9 @@ Route::post('login', [AuthController::class, 'login']);
 Route::group(['middleware' => 'auth:sanctum'], function () {
     // All users can log out
     Route::post('logout', [AuthController::class, 'logout']);
-    // All users can see a user infos
+    // All users can see their own infos
     Route::get('users/{user}', [UserController::class, 'show']);
-    // All users can get property infos
+    // All users can get their property infos
     Route::get('properties/{property}', [PropertyController::class, 'show']);
     // All users can get the list of their payments
     Route::get('users/{user}/payments', [UserController::class, 'getPayments']);
