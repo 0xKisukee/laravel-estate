@@ -11,10 +11,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->alias([
-            'is_owner' => \App\Http\Middleware\IsOwnerMiddleware::class,
-            'is_tenant' => \App\Http\Middleware\IsTenantMiddleware::class,
-        ]);
+
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
