@@ -37,8 +37,8 @@ class TicketMessageController extends Controller
 
         $message = $ticket->messages()->create([
             'user_id' => request()->user()->id,
-            'content' => $request->$validatedData['content'],
-            'is_system' => $request->$validatedData['is_system'],
+            'content' => $validatedData['content'],
+            'is_system' => $validatedData['is_system'],
         ]);
 
         return response()->json($message);

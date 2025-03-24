@@ -37,8 +37,8 @@ class TicketController extends Controller
         $property = Property::findOrFail($request->$validatedData['property_id']);
 
         $ticket = Ticket::create([
-            'type' => $request->$validatedData['type'],
-            'description' => $request->$validatedData['description'],
+            'type' => $validatedData['type'],
+            'description' => $validatedData['description'],
             'property_id' => $property->id,
             'owner_id' => $property->owner_id,
             'tenant_id' => $property->tenant_id,
