@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Payment;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
+    use AuthorizesRequests;
+
     public function index()
     {
 
@@ -15,10 +18,6 @@ class PaymentController extends Controller
 
     public function show(Payment $payment)
     {
-        if (!$payment) {
-            return response()->json(['message' => 'Payment not found'], 404);
-        }
-
         return response()->json($payment);
     }
 
