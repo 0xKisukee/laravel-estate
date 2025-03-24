@@ -16,7 +16,7 @@ class UserPaymentController extends Controller
      */
     public function index(User $user)
     {
-        $this->authorize('getPayments', $user);
+        $this->authorize('view', $user);
 
         $payments = $user->profile()->payments;
 

@@ -33,7 +33,7 @@ class PropertyPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return $user->role === 'owner';
     }
 
     /**
@@ -41,7 +41,7 @@ class PropertyPolicy
      */
     public function update(User $user, Property $property): bool
     {
-        return false;
+        return $user->id === $property->owner_id;
     }
 
     /**

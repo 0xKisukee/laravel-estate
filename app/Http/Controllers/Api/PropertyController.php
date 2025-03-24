@@ -27,6 +27,8 @@ class PropertyController extends Controller
 
     public function store(CreatePropertyRequest $request)
     {
+        $this->authorize('create', Property::class);
+
         $property = request()->user()->ownedProperties()->create($request->validated());
 
         return response()->json($property);
@@ -44,6 +46,8 @@ class PropertyController extends Controller
 
     public function setTenant(Property $property, Request $request)
     {
+        $this->authorize('update', $property);
+
         // Here we need to get 'entry_date' from the body to calculate first payment
         $property->update([
             'tenant_id' => $request->validate(['tenant_id' => 'required'])['tenant_id']
@@ -54,6 +58,8 @@ class PropertyController extends Controller
 
     public function removeTenant(Property $property)
     {
+        $this->authorize('update', $property);
+
         $property->update(['tenant_id' => null]);
 
         return response()->json($property);

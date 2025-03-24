@@ -16,7 +16,7 @@ class UserTicketController extends Controller
      */
     public function index(User $user)
     {
-        $this->authorize('getTickets', $user);
+        $this->authorize('view', $user);
 
         $tickets = $user->profile()->tickets;
 

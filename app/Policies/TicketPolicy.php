@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Property;
 use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -21,15 +22,15 @@ class TicketPolicy
      */
     public function view(User $user, Ticket $ticket): bool
     {
-        return false;
+        return $user->id == $ticket->tenant->id || $ticket->owner->id;
     }
 
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(User $user, Property $property): bool
     {
-        return false;
+        return $user->id === $property->owner->id || $property->tenant->id;
     }
 
     /**
@@ -37,7 +38,7 @@ class TicketPolicy
      */
     public function update(User $user, Ticket $ticket): bool
     {
-        return false;
+        return $user->id === $ticket->owner->id;
     }
 
     /**
@@ -75,10 +76,6 @@ class TicketPolicy
 
     public function newMessage(User $user, Ticket $ticket): bool
     {
-        if ($user->isOwner()) {
-            return ($user->id === $ticket->owner()->id);
-        } else {
-            return ($user->id === $ticket->tenant()->id);
-        }
+        return $user->id === $ticket->owner->id || $user->id === $ticket->tenant->id;
     }
 }

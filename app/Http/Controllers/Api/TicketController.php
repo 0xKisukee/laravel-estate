@@ -36,6 +36,8 @@ class TicketController extends Controller
 
         $property = Property::findOrFail($request->$validatedData['property_id']);
 
+        $this->authorize('create', $property);
+
         $ticket = Ticket::create([
             'type' => $validatedData['type'],
             'description' => $validatedData['description'],
@@ -52,9 +54,7 @@ class TicketController extends Controller
      */
     public function show(Ticket $ticket)
     {
-        if (!$ticket) {
-            return response()->json(['message' => 'Ticket not found'], 404);
-        }
+        $this->authorize('view', $ticket);
 
         return response()->json($ticket);
     }
@@ -64,6 +64,8 @@ class TicketController extends Controller
      */
     public function update(Request $request, Ticket $ticket)
     {
+        $this->authorize('update', $ticket);
+
         $ticket->update([
             'status' => $request->validate(['required', 'string'])['status'],
         ]);

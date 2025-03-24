@@ -18,6 +18,8 @@ class PaymentController extends Controller
 
     public function show(Payment $payment)
     {
+        $this->authorize('view', $payment);
+
         return response()->json($payment);
     }
 
@@ -28,6 +30,8 @@ class PaymentController extends Controller
 
     public function update(Payment $payment, Request $request)
     {
+        $this->authorize('update', $payment);
+
         $payment->update([
             'paid_date' => $request->validate(['required', 'string'])['paid_date'],
         ]);
