@@ -49,18 +49,4 @@ class MessageController extends Controller
     {
         //
     }
-
-    public function newMsg(Ticket $ticket, CreateMessageRequest $request)
-    {
-        $message = Message::create($request->validated());
-
-        return response()->json($message);
-    }
-
-    public function getMessages(Ticket $ticket)
-    {
-        $messages = $ticket->messages;
-
-        return response()->json($messages);
-    }
 }

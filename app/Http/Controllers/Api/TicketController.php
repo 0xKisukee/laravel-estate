@@ -3,15 +3,20 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateMessageRequest;
 use App\Http\Requests\CreateTicketRequest;
 use App\Http\Resources\UserResource;
+use App\Models\Message;
 use App\Models\Property;
 use App\Models\Ticket;
 use App\Models\User;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
 {
+    use AuthorizesRequests;
+
     /**
      * Display a listing of the resource.
      */
@@ -70,10 +75,19 @@ class TicketController extends Controller
         //
     }
 
-    public function getTickets(User $user, Request $request) {
-        $userArray = (new UserResource($user))->toArray(request());
-        $tickets = $userArray['tickets'];
+    public function getMessages(Ticket $ticket)
+    {
+        $this->authorize('getMessages', $ticket);
 
-        return response()->json($tickets);
+        $messages = $ticket->messages;
+
+        return response()->json($messages);
+    }
+
+    public function newMsg(Ticket $ticket, CreateMessageRequest $request)
+    {
+        $message = Message::create($request->validated());
+
+        return response()->json($message);
     }
 }
