@@ -23,11 +23,11 @@ class RegisterRequest extends FormRequest
     {
         return [
             'role' => 'required|string|in:owner,tenant',
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'phone' => 'required|string|max:255',
-            'iban' => 'required|string|max:255',
-            'bic' => 'required|string|max:255',
+//            'first_name' => 'required|string|max:255',
+//            'last_name' => 'required|string|max:255',
+//            'phone' => 'required|string|max:255',
+//            'iban' => 'required|string|max:255',
+//            'bic' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed', // needs 'password_confirmation'
         ];
