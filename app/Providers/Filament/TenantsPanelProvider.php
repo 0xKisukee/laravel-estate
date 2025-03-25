@@ -48,6 +48,7 @@ class TenantsPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+                //'tenant',
             ])
             ->authMiddleware([
                 Authenticate::class,

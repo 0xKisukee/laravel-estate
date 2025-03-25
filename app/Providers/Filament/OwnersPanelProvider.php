@@ -50,6 +50,7 @@ class OwnersPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+                //'owner',
             ])
             ->authMiddleware([
                 Authenticate::class,
