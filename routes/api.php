@@ -36,12 +36,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('', [PropertyController::class, 'store']);
         // All users can get their property infos
         Route::get('{property}', [PropertyController::class, 'show']);
-
-        // I DON'T KNOW WHAT TO DO WITH THESE 2 ROUTES...
-        // Owners can set a tenant for a property
-        Route::patch('{property}/setTenant', [PropertyController::class, 'setTenant']);
-        // Owners can remove a tenant from a property
-        Route::patch('{property}/removeTenant', [PropertyController::class, 'removeTenant']);
+        // Owners can edit a property (and set/remove tenant)
+        Route::patch('{property}', [PropertyController::class, 'update']);
     });
 
     // Owners can record a payment to set it as paid

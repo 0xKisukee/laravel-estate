@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreatePropertyRequest;
+use App\Http\Resources\PropertyResource;
 use App\Models\Property;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -33,12 +34,24 @@ class PropertyController extends Controller
 
         $property = $owner->prop()->create($request->validated());
 
-        return response()->json($property);
+        return response()->json(new PropertyResource($property));
     }
 
     public function update(Property $property, Request $request)
     {
+        $this->authorize('update', $property);
 
+        // Owner can either set a tenant, remove a tenant
+        // or completely edit property infos
+        $validatedData = $request->validate([
+            'tenant_id' => 'integer|exists:users,id|nullable', // new tenant, set to null to remove tenant
+        ]);
+
+        // USE "entry_date" HERE TO CREATE FIRST PAYMENT
+
+        $property->update($validatedData);
+
+        return response()->json($property);
     }
 
     public function destroy(Property $property)
@@ -46,24 +59,4 @@ class PropertyController extends Controller
 
     }
 
-    public function setTenant(Property $property, Request $request)
-    {
-        $this->authorize('update', $property);
-
-        // Here we need to get 'entry_date' from the body to calculate first payment
-        $property->update([
-            'tenant_id' => $request->validate(['tenant_id' => 'required'])['tenant_id']
-        ]);
-
-        return response()->json($property);
-    }
-
-    public function removeTenant(Property $property)
-    {
-        $this->authorize('update', $property);
-
-        $property->update(['tenant_id' => null]);
-
-        return response()->json($property);
-    }
 }

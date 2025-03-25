@@ -28,9 +28,9 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'email_verified_at' => $this->email_verified_at,
 
-            // Nested resources
-            'payments' => PaymentResource::collection($userPayments),
-            'tickets' => PaymentResource::collection($userTickets),
+            // Nested resources (maybe too much data)
+            // 'payments' => PaymentResource::collection($userPayments),
+            // 'tickets' => PaymentResource::collection($userTickets),
         ];
     }
 }

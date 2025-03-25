@@ -25,8 +25,8 @@ class PropertyResource extends JsonResource
             'address' => $this->address,
 
             // Nested resources
-            'owner' => UserResource::collection($owner),
-            'tenant' => UserResource::collection($tenant),
+            'owner' => new UserResource($owner),
+            'tenant' => new UserResource($tenant),
         ];
     }
 }
