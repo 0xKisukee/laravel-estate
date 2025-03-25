@@ -18,7 +18,7 @@ class Tenant extends User
 
     public function prop(): HasMany
     {
-        return $this->hasMany(Property::class, 'owner_id');
+        return $this->hasMany(Property::class, 'tenant_id');
     }
 
     public function payments(): HasMany
