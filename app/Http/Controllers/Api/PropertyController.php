@@ -51,7 +51,7 @@ class PropertyController extends Controller
 
         $property->update($validatedData);
 
-        return response()->json($property);
+        return response()->json($property->load('tenant'));
     }
 
     public function destroy(Property $property)
