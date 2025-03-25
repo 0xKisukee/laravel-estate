@@ -29,7 +29,9 @@ class PropertyController extends Controller
     {
         $this->authorize('create', Property::class);
 
-        $property = request()->user()->ownedProperties()->create($request->validated());
+        $owner = request()->user()->profile();
+
+        $property = $owner->prop()->create($request->validated());
 
         return response()->json($property);
     }

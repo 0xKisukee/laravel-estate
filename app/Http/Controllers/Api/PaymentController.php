@@ -32,8 +32,9 @@ class PaymentController extends Controller
     {
         $this->authorize('update', $payment);
 
+        // WE NEED TO VALIDATE DATE FORMAT
         $payment->update([
-            'paid_date' => $request->validate(['required', 'string'])['paid_date'],
+            'paid_date' => $request->validate(['paid_date' => 'required|string'])['paid_date'],
         ]);
 
         return response()->json($payment);

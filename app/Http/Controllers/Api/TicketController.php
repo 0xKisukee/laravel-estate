@@ -34,9 +34,9 @@ class TicketController extends Controller
             'description' => 'required|string',
         ]);
 
-        $property = Property::findOrFail($request->$validatedData['property_id']);
+        $property = Property::findOrFail($validatedData['property_id']);
 
-        $this->authorize('create', $property);
+        $this->authorize('create', [Ticket::class, $property]);
 
         $ticket = Ticket::create([
             'type' => $validatedData['type'],
@@ -67,7 +67,7 @@ class TicketController extends Controller
         $this->authorize('update', $ticket);
 
         $ticket->update([
-            'status' => $request->validate(['required', 'string'])['status'],
+            'status' => $request->validate(['status' => 'required|string'])['status'],
         ]);
 
         return response()->json($ticket);
