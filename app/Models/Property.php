@@ -10,9 +10,7 @@ class Property extends Model
 {
     use HasFactory;
 
-    public function isRented(): bool {
-        return isset($this->tenant_id);
-    }
+    protected $with = ['owner', 'tenant'];
 
     public function owner(): BelongsTo {
         return $this->belongsTo(User::class, 'owner_id');
