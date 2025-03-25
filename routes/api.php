@@ -52,6 +52,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // All users can add a message to a ticket
     Route::post('tickets/{ticket}/messages', [TicketMessageController::class, 'store']);
 
+    // create should go in property resource imo
     // All users can create and see a ticket, Owners can update a ticket
     Route::apiResource('tickets', TicketController::class, [
         'only' => ['store', 'show', 'update']
